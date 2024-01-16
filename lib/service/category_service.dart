@@ -12,4 +12,20 @@ class CategoryService{
   saveCategory(Category category) async {
     return await _repository.insertData('categories', category.categoryMap());
   }
+
+  readCategories() async {
+    return await _repository.readData('categories');
+  }
+
+  readCategoriesById(categoryId) async {
+    return await _repository.readDataById('categories', categoryId);
+  }
+
+  updateCategory(Category category) async {
+    return await _repository.updateData('categories', category.categoryMap());
+  }
+
+  deleteCategory(categoryId) async {
+    return await _repository.deleteData('categories', categoryId);
+  }
 }

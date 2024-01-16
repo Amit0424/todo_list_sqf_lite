@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: kMintColor,
+          seedColor: kDarkBlueColor,
           primary: kDarkBlueColor,
         ),
         fontFamily: 'Azonix',
