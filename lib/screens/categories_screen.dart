@@ -24,11 +24,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   @override
   void initState() {
-    getAllCategories();
+    _getAllCategories();
     super.initState();
   }
 
-  getAllCategories() async {
+  _getAllCategories() async {
     final categories = await _categoryService.readCategories();
     _categoryList = [];
     for (var category in categories) {
@@ -44,7 +44,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   _showSuccessSnackbar(message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
+      content: Text(
+        message,
+        style: const TextStyle(
+          fontSize: 14,
+        ),
+      ),
       backgroundColor: kDarkBlueColor,
     ));
   }
@@ -70,7 +75,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 _categoryDescriptionController.clear();
                 Navigator.pop(context);
               },
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(fontSize: 12),
+              ),
             ),
             TextButton(
               onPressed: () async {
@@ -84,16 +92,30 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   result = await _categoryService.saveCategory(_category);
                 }
                 print(result);
-                _categoryNameController.clear();
-                _categoryDescriptionController.clear();
-                Navigator.pop(context);
-                getAllCategories();
-                _showSuccessSnackbar('${buttonName}d Successfully');
+
+                if(result > 0){
+                  _categoryNameController.clear();
+                  _categoryDescriptionController.clear();
+
+                  Navigator.pop(context);
+                  _getAllCategories();
+                  _showSuccessSnackbar('${buttonName}d Successfully');
+                }
               },
-              child: Text(buttonName),
+              child: Text(
+                buttonName,
+                style: const TextStyle(
+                  fontSize: 12,
+                ),
+              ),
             ),
           ],
-          title: Text(dialogName),
+          title: Text(
+            dialogName,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
           content: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -101,6 +123,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   decoration: const InputDecoration(
                     hintText: 'Write a Category',
                     labelText: 'Category',
+                    hintStyle: TextStyle(fontSize: 16),
+                    labelStyle: TextStyle(fontSize: 16),
                   ),
                   controller: _categoryNameController,
                 ),
@@ -108,6 +132,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   decoration: const InputDecoration(
                     hintText: 'Write a Description',
                     labelText: 'Description',
+                    hintStyle: TextStyle(fontSize: 16),
+                    labelStyle: TextStyle(fontSize: 16),
                   ),
                   controller: _categoryDescriptionController,
                 ),
@@ -129,28 +155,37 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('Cancel'),
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
               TextButton(
                 onPressed: () async {
                   final result =
                       await _categoryService.deleteCategory(categoryId);
                   Navigator.pop(context);
-                  getAllCategories();
+                  _getAllCategories();
                   _showSuccessSnackbar('Deleted Successfully');
                 },
-                child: const Text('Delete'),
+                child: const Text(
+                  'Delete',
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
             ],
-            title: const Text('Delete Category'),
+            title: const Text(
+              'Delete Category',
+              style: TextStyle(fontSize: 16),
+            ),
           );
         });
   }
 
   @override
   void dispose() {
-    _categoryNameController;
-    _categoryDescriptionController;
+    _categoryNameController.dispose();
+    _categoryDescriptionController.dispose();
     super.dispose();
   }
 
@@ -174,6 +209,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           'Categories',
           style: TextStyle(
             color: Colors.white,
+            fontSize: 16,
           ),
         ),
       ),
@@ -194,9 +230,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     },
                     icon: const Icon(Icons.edit),
                   ),
-                  title: Text(_categoryList[index].name ?? '--------'),
-                  subtitle:
-                      Text(_categoryList[index].description ?? '-------------'),
+                  title: Text(
+                    _categoryList[index].name ?? '--------',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  subtitle: Text(
+                    _categoryList[index].description ?? '-------------',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                   trailing: IconButton(
                     onPressed: () {
                       _deleteFormDialog(context, _categoryList[index].id);

@@ -16,7 +16,7 @@ class App extends StatelessWidget {
           seedColor: kDarkBlueColor,
           primary: kDarkBlueColor,
         ),
-        fontFamily: 'Azonix',
+        fontFamily: 'Monument',
       ),
       home: const HomeScreen(),
     );
