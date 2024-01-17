@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_list_sqf_lite/constants/styling.dart';
 import 'package:todo_list_sqf_lite/helpers/drawer_navigation.dart';
@@ -88,20 +90,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(_todoList[index].title ?? '------'),
                     ],
                   ),
-                  subtitle: Text(_todoList[index].category ?? '----------'),
+                  subtitle: Text(
+                    _todoList[index].category ?? '----------',
+                    style: const TextStyle(fontSize: 12),
+                  ),
                   trailing: Text(_todoList[index].todoDate ?? '--------'),
                 ),
               ),
             );
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (ctx) => const ToDoScreen(),
             ),
           );
+          setState(() {
+            _getAllTodos();
+          });
         },
         child: const Icon(Icons.add),
       ),

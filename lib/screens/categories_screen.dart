@@ -123,7 +123,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   decoration: const InputDecoration(
                     hintText: 'Write a Category',
                     labelText: 'Category',
-                    hintStyle: TextStyle(fontSize: 16),
+                    hintStyle: TextStyle(fontSize: 12),
                     labelStyle: TextStyle(fontSize: 16),
                   ),
                   controller: _categoryNameController,
@@ -132,7 +132,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   decoration: const InputDecoration(
                     hintText: 'Write a Description',
                     labelText: 'Description',
-                    hintStyle: TextStyle(fontSize: 16),
+                    hintStyle: TextStyle(fontSize: 12),
                     labelStyle: TextStyle(fontSize: 16),
                   ),
                   controller: _categoryDescriptionController,
@@ -162,8 +162,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
               TextButton(
                 onPressed: () async {
-                  final result =
-                      await _categoryService.deleteCategory(categoryId);
+                  await _categoryService.deleteCategory(categoryId);
                   Navigator.pop(context);
                   _getAllCategories();
                   _showSuccessSnackbar('Deleted Successfully');
@@ -236,7 +235,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   ),
                   subtitle: Text(
                     _categoryList[index].description ?? '-------------',
-                    style: const TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 12),
                   ),
                   trailing: IconButton(
                     onPressed: () {
