@@ -158,7 +158,6 @@ class _ToDoScreenState extends State<ToDoScreen> {
                   _selectedValue = null;
                   _showSuccessSnackbar('Created');
                 }
-                print(result);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: kDarkBlueColor,
